@@ -1,2 +1,2 @@
-# Codigos_GMPPT
-It contains GMPPT codes and a modeled PV module code.
+# Hybrid MPPT Comparison
+Comparison of Hybrid Maximum Power Point Tracking (MPPT) Techniques under the same configuration setup.
