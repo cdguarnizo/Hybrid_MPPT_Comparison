@@ -18,4 +18,7 @@ Before implementing the MPPT methods in the PLEX platform, each method is tested
 ### Metaheuristic Optimization
 * Genetic Algorihtnms:
 * Particle Swarm Optimization:
-* 
+
+## Implementations in PLEX platform
+
+
