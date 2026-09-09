@@ -15,8 +15,8 @@ The following approaches are trained using the dataset obtained from the simulat
 * Neural networks (multilayer perceptron): Similar to the Decision trees case, Artificial Neural Newtorks are trained for each of the main voltages (10V, 20V and 40V).
 
 ### Metaheuristic Optimization
-* Genetic Algorihtms: 
-* Particle Swarm Optimization:
+* Genetic Algorithms: In the python file *Genetic_Algorithm_and_Perturb_&_Observe.py* is coded a Genetic Algorithm combined with P&O aimed to find de MPPT.
+* Particle Swarm Optimization: In the python file *Particle_Swarm_Optimization_and_Perturb_&_Observe.py* is coded a Particle Swarm Algorithm combined with P&O aimed to find de MPPT.
 
 ## Implementations in PLECS platform
 
