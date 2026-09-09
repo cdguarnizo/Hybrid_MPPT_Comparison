@@ -16,8 +16,8 @@ The following approaches are trained using the dataset obtained from the simulat
 
 ### Metaheuristic Optimization
 * Genetic Algorithms: In the python file *Genetic_Algorithm_and_Perturb_&_Observe.py* is coded a Genetic Algorithm combined with P&O aimed to find de MPPT.
-* Particle Swarm Optimization: In the python file *Particle_Swarm_Optimization_and_Perturb_&_Observe.py* is coded a Particle Swarm Algorithm combined with P&O aimed to find de MPPT.
+* Particle Swarm Optimization: In the python file *Particle_Swarm_Optimization_and_Perturb_&_Observe.py* is coded a Particle Swarm Algorithm combined with P&O aimed to find the MPPT.
 
 ## Implementations in PLECS platform
-
+In the folder PLECS is the code source of the Hybrid approaches coded to find the MPPT.
 
