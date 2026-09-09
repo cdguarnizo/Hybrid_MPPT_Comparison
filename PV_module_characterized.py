@@ -53,28 +53,81 @@ spc_mat = spc_mat[1:]
 spc_mat = np.sort(spc_mat, axis = 1)
 spc_mat = np.unique(spc_mat, axis = 0)
 
-T = 25
+localMaxV = np.zeros((spc_mat.shape[0],3))
+localMaxP = np.zeros((spc_mat.shape[0],3))
+MaxInd = np.zeros((spc_mat.shape[0],1), dtype=int)
 
-vmax_vec=[] #ARRAY TO SAVE ALL MAXIMUM POWER VOLTAGE.
-pmax_vec=[] #ARRAY TO SAVE ALL MAXIMUM POWER.
+V_t = [] #values of voltage of the panel
+Pm_t = []
+Pc_t = []
+Va_t = []
+Ir_t = []
+T = 25.0
+V = 38.0
 
-corriente=[] #AUXILIARY ARRAY TO SAVE THE ACTUAL CURRENT CURVE.
-voltaje=np.linspace(0.1,50,128) #ARRAY CONTAINING A VOLTAGE SWEEP BETWEEN 0 AND 50 V.
+params = np.append(spc_mat[0]*1000., [T, V])
+data = pvsim(params.tolist())
+Ir = data['Ir']
 
+plt.figure()
+colores = ['ob','xg','1k']
+dataset = []
 for k in range(spc_mat.shape[0]):
+    spc = spc_mat[k]   #Select k-th pattern
+     
+    params = np.append(spc*1000., [T, V])
+    #Evaluate panel for current Voltage
+    data = pvsim(params.tolist())
+    Ir = data['Ir']
+    Vmax = data['Vmax']
+    Pmax = data['Pmax']
+    Pc = Ir*V
+    Pk = Pc
+    Va_t.append(V)
+    V_t.append(Vmax)
+    Pm_t.append(Pmax)
+    Pc_t.append(Pc)
+    Ir_t.append(Ir)
+    plt.plot(Vmax,Pmax,'+r')
+    if Vmax < 15. and Vmax > 10.:
+        maxCol = 0
+    elif Vmax < 30.:
+        maxCol = 1
+    elif Vmax >= 30.:
+        maxCol = 2
+    MaxInd[k] = maxCol
+    #Detect all maximum values
+    maxs = np.where(np.convolve([-1,1],np.diff(data['Pvec']) > 0.)==1)[0]
+    maxind = np.argmax(data['Pvec'])
+    maxs = np.delete(maxs, np.where(maxs == maxind)[0])
+    maxs = np.delete(maxs, np.where(data['Vvec'][maxs] < 10.)[0])
+    #print(maxs.size)
+    if maxs.size > 1:
+        for m in maxs:
+            if (data['Vvec'][m] < 15. ):
+                col = 0
+            elif (data['Vvec'][m] < 30.):
+                col = 1
+            elif (data['Vvec'][m] >= 30.):
+                col = 2
+            localMaxV[k,col] = data['Vvec'][m]
+            localMaxP[k,col] = data['Pvec'][m]
+            #if (col < 2 and Vmax > 35.) or (col == 0 and (Vmax < 27. and Vmax > 21.)) or (col==1 and Vmax<13.):
+                #plt.plot(data['Vvec'][maxs], data['Pvec'][maxs], colores[maxCol], mfc='none')
+    #plt.plot(data['Vvec'],data['Pvec'])
+    
+    
+    #indV1 = data['Vvec']>20.
+    #V1m = np.max(data['Vvec'][indV1])
+    #P1m = np.max(data['Vvec'][indV1])
+    dataset.append([Vmax, Pmax])
 
-    spc = spc_mat[k] #ACTUAL IRRADIANCE         
-    params = np.append(spc*1000, [T, 1]) #CONCATENATION OF DATA TO ENTER THE pvsim FUNCTION.
-    data = pvsim(params.tolist()) #DICTIONATY OBTAINED BY THE pvsim FUNCTION.
-    vmax_vec.append(data['Vmax']) #SAVE ACTUAL MAXIMUM POWER VOLTAGE.
-    pmax_vec.append(data['Pmax']) #SAVE ACTUAL MAXIMUM POWER.
+dataset = np.array(dataset)
+dataset = np.block([spc_mat, MaxInd, dataset, localMaxV, localMaxP])
+np.savetxt("dataset.csv", dataset, delimiter=",")
 
-
-    for l in voltaje: #VOLTAGE SWEEP TO RE-SAMPLE THE OBTAINED CURVES.
-        mx = np.where(data['Vvec']<l)[0][-1] #THE INDEX IS OBTAINED WHERE THE VOLTAGE IS EQUAL TO 'l'.
-        I = data['Ivec'][mx] #THE CURRENT CORRESPONDING TO 'l' IS OBTAINED.
-        corriente.append(I) #SAVE THE ACTUAL CURRENT INTO ARRAY.
-    plt.plot(voltaje,corriente) #PLOT I-V CURVE.
-    corriente=[] #CLEAN AUXILIARY ARRAY.
-
-plt.show() #SHOW ALL PLOTS.
+plt.xlim([0,450]) #10-13,21-27,35-45
+plt.xlabel("Voltage [V]")
+plt.ylabel("Power [W]")
+#plt.savefig('AllCurves.pdf')
+plt.show()
