@@ -19,5 +19,5 @@ The following approaches are trained using the dataset obtained from the simulat
 * Particle Swarm Optimization: In the python file *Particle_Swarm_Optimization_and_Perturb_&_Observe.py* is coded a Particle Swarm Algorithm combined with P&O aimed to find the MPPT.
 
 ## Implementations in PLECS platform
-In the folder PLECS is the code source of the Hybrid approaches that were used to program the PLECS RTbox. Besides the aforementioned methods, the code for the Fuzzy Logic Controller (FLC) is included in *MPP_FLC_PO_NYM_v2.plecs*.
+In the folder PLECS is the source code of the Hybrid approaches that were used to program the PLECS RTbox. Besides the aforementioned methods, the code for the Fuzzy Logic Controller (FLC) is included in *MPP_FLC_PO_NYM_v2.plecs*.
 
