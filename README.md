@@ -7,7 +7,7 @@ Before implementing the MPPT methods in the PLECS platform, each method is teste
 * Characterization of a commercial Panasonic EverVolt 380W panel:  The code [PV_module_characterized.py](https://github.com/cdguarnizo/Hybrid_MPPT_Comparison/blob/main/PV_module_characterized.py) includes the simulations and data generation for this panel at different shading conditions. These simulations are performed using the library [PVMismatch](https://github.com/SunPower/PVMismatch/) from SunPower.
 
 ### Standard approach
-* Perturb and Observe (P&O): There are two simulations to test the performance of P&O, in 'GMPPT_Perturb_&_Observe_Delta.py' the P&O algorithm is teste for one shading condition. Meanwhile, in 'GMPPT_Perturb_&_Observe_Time.py' the algorithm is tested against three different shading conditions.
+* Perturb and Observe (P&O): There are two simulations to test the performance of P&O, in *GMPPT_Perturb_&_Observe_Delta.py* the P&O algorithm is teste for one shading condition. Meanwhile, in *GMPPT_Perturb_&_Observe_Time.py* the algorithm is tested against three different shading conditions.
 
 
 ### Supervised Learning models
