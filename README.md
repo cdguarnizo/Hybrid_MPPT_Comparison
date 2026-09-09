@@ -10,7 +10,7 @@ Before implementing the MPPT methods in the PLECS platform, each method is teste
 * Perturb and Observe (P&O): There are two simulations to test the performance of P&O, in *GMPPT_Perturb_&_Observe_Delta.py*, the P&O algorithm is teste for one shading condition. Meanwhile, in *GMPPT_Perturb_&_Observe_Time.py*, the algorithm is tested against three different shading conditions.
 
 ### Supervised Learning models
-The following approaches are trained using the dataset obtained from the *PV_module_characterized.py* and registered in *dataset.csv* simulations.
+The following approaches are trained using the dataset obtained from the simulations of *PV_module_characterized.py* and registered in *dataset.csv*.
 * Decision Trees: We trained three different decision trees for each of the main voltages (10V, 20V and 40V) formed by the shading conditions. The inputs of the decision threes are the local maxima voltages and powers of each P-V curve. 
 * Neural networks (multilayer perceptron): Similar to the Decision trees case, Artificial Neural Newtorks are trained for each of the main voltages (10V, 20V and 40V).
 
