@@ -11,7 +11,7 @@ Before implementing the MPPT methods in the PLECS platform, each method is teste
 
 ### Supervised Learning models
 The following approaches are trained using the dataset obtained from the simulations of *PV_module_characterized.py* and registered in *dataset.csv*.
-* Decision Trees: We trained three different decision trees for each of the main voltages (10V, 20V and 40V) formed by the shading conditions. The inputs of the decision threes are the local maxima voltages and powers of each P-V curve. 
+* Decision Trees: We trained three different decision trees for each of the main voltages (20V and 40V) formed by the shading conditions. The inputs of the decision threes are the local maxima voltages and powers of each P-V curve. 
 * Neural networks (multilayer perceptron): Similar to the Decision trees case, Artificial Neural Newtorks are trained for each of the main voltages (10V, 20V and 40V).
 
 ### Metaheuristic Optimization
