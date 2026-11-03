@@ -26,13 +26,29 @@ y = np.concatenate((y, ymax))
 X = np.vstack((X,Xmax))
 
 ## Multi Layer Perceptron Clasiffier
-
 from sklearn.neural_network import MLPClassifier
-clf = MLPClassifier(solver='sgd', alpha=1e-5,hidden_layer_sizes=(3,3), random_state=1, activation='logistic', max_iter=2000)
-clf = clf.fit(X, y)
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import classification_report
 
-print('Coeficiente:', clf.coefs_)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=2)
+scaler = StandardScaler()
+X_train_scal = scaler.fit_transform(X_train)  # fit + transform
+X_test_scal = scaler.transform(X_test)        # solo transform
+
+print("Traing dataset size: ", X_train.shape)
+print("Test dataset size: ", X_test.shape)
+#8,16,8 seed 0 -> 0.85 accu 
+clf = MLPClassifier(hidden_layer_sizes=(8,16,8), activation='relu', solver='adam', validation_fraction=0.1, alpha=1e-4, random_state=0, max_iter=2000)
+clf = clf.fit(X_train_scal, y_train)
+y_pred = clf.predict(X_test_scal)
+
+print('Coefficients:', clf.coefs_)
 print('Bias:', clf.intercepts_)
-print('N° de capas:', clf.n_layers_)
-print('N° de entradas:', clf.n_features_in_)
-print('N° de salidas:', clf.n_outputs_)
+print('Number of layers:', clf.n_layers_)
+print('Number of features:', clf.n_features_in_)
+print('Number of outputs:', clf.n_outputs_)
+print('Classes:', clf.classes_)
+
+print("\nResults on test:")
+print(classification_report(y_test, y_pred))
